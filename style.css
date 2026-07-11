@@ -1208,6 +1208,33 @@ h3 {
   color: var(--color-teal-dark);
 }
 
+.ask-card.featured {
+  transform: scale(1.06);
+  border-color: rgba(197, 160, 78, 0.4);
+  box-shadow: 0 10px 30px rgba(197, 160, 78, 0.12);
+  background: linear-gradient(185deg, var(--color-card-bg) 0%, rgba(197, 160, 78, 0.04) 100%);
+  z-index: 2;
+}
+
+.ask-card.featured:hover {
+  border-color: rgba(197, 160, 78, 0.6);
+  box-shadow: 0 12px 36px rgba(197, 160, 78, 0.18);
+  transform: scale(1.08) translateY(-2px);
+}
+
+.ask-card.featured .ask-icon {
+  color: #c5a04e;
+  background-color: rgba(197, 160, 78, 0.08);
+  border-color: rgba(197, 160, 78, 0.2);
+}
+
+.ask-card.featured h3 {
+  background: linear-gradient(135deg, #a8822a 0%, #d4af37 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
 .contact-box {
   background-color: var(--color-card-bg);
   border: 1px solid var(--color-border);

@@ -7,8 +7,8 @@
 
 :root {
   /* Colors from IonOpticks flyer and clinical light theme */
-  --color-bg-start: #ffffff;
-  --color-bg-end: #ffffff;
+  --color-bg-start: #f6fbf9;
+  --color-bg-end: #e8f5f1;
   --color-teal-dark: #0b3c46;
   --color-teal-primary: #0b4c54;
   --color-mint: #00a79d;
@@ -1242,7 +1242,7 @@ h3 {
   height: 100vh;
   z-index: -2;
   overflow: hidden;
-  background-color: #ffffff; /* Solid White Base */
+  background: radial-gradient(circle at center, var(--color-bg-start) 0%, var(--color-bg-end) 100%);
   pointer-events: none;
 }
 

@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Predictive early-warning system for ICU deterioration events, detecting circulatory failure, hyperglycaemia, sepsis, kidney failure, and liver failure before symptoms manifest.">
+  <title>ICU Deterioration Warning System Pitch Deck</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Live Background Blobs -->
+  <div class="live-bg-container">
+    <div class="bg-blob blob-1"></div>
+    <div class="bg-blob blob-2"></div>
+    <div class="bg-blob blob-3"></div>
+  </div>
+  <div class="bg-grid-overlay"></div>
+  <canvas id="ekgCanvas"></canvas>
+
+  <!-- Side Dot Progress Indicators (11 Slides) -->
+  <div class="scroll-spy" role="navigation" aria-label="Slide navigation">
+    <div class="scroll-dot active" data-slide="1" title="Clinical Vision" role="button" aria-label="Slide 1: Vision"></div>
+    <div class="scroll-dot" data-slide="2" title="The Challenge" role="button" aria-label="Slide 2: The Challenge"></div>
+    <div class="scroll-dot" data-slide="3" title="Our System" role="button" aria-label="Slide 3: Our System"></div>
+    <div class="scroll-dot" data-slide="4" title="Clinical Dashboard" role="button" aria-label="Slide 4: Live Dashboard"></div>
+    <div class="scroll-dot" data-slide="5" title="Validation" role="button" aria-label="Slide 5: Validation"></div>
+    <div class="scroll-dot" data-slide="6" title="Patient Value" role="button" aria-label="Slide 6: Patient Value"></div>
+    <div class="scroll-dot" data-slide="7" title="Hospital Value" role="button" aria-label="Slide 7: Hospital Value"></div>
+    <div class="scroll-dot" data-slide="8" title="Public Savings" role="button" aria-label="Slide 8: Public Savings"></div>
+    <div class="scroll-dot" data-slide="9" title="Private Value" role="button" aria-label="Slide 9: Private Value"></div>
+    <div class="scroll-dot" data-slide="10" title="TRL Timeline" role="button" aria-label="Slide 10: TRL Timeline"></div>
+    <div class="scroll-dot" data-slide="11" title="Next Steps" role="button" aria-label="Slide 11: Next Steps"></div>
+  </div>
+
+  <!-- Scroll snap container -->
+  <div class="scroll-container">
+
+    <!-- SLIDE 1: TITLE -->
+    <section class="slide-section" id="slide-1">
+      <div class="slide-wrapper">
+        <div class="title-container">
+          <div class="glow-logo">
+            <svg class="logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <path d="M50,15 L80,25 L80,55 C80,72 67,83 50,88 C33,83 20,72 20,55 L20,25 Z" stroke="var(--color-border)" stroke-width="5" />
+              <path d="M25,50 L40,50 L46,35 L52,70 L58,45 L62,55 L66,50 L75,50" />
+            </svg>
+          </div>
+          <h1>ICU Deterioration<br><span class="highlight-mint">Early Warning System</span></h1>
+          <p class="subtitle">AI-Powered Patient Safety Net: Detecting Clinical Deterioration Before Symptoms Manifest</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: THE CHALLENGE -->
+    <section class="slide-section" id="slide-2">
+      <div class="slide-wrapper">
+        <span class="slide-label">The Clinical Problem</span>
+        <h2>The ICU Deterioration Challenge</h2>
+        <div class="grid-2">
+          <div>
+            <p class="lead-text">
+              Current diagnosis is <span class="highlight-alert font-bold">reactive rather than preventive</span>. Sepsis and organ failure are typically identified only after clinical symptoms have fully manifested.
+            </p>
+            <p class="body-text">
+              In intensive care units, sepsis and sudden organ failure develop rapidly. Delayed identification compounds resource strain, prolongs hospital stays, increases patient mortality, and places immense pressure on clinical staff and public healthcare finances.
+            </p>
+          </div>
+          <div class="card-vertical-stack">
+            <div class="glass-card">
+              <div class="stat-large highlight-alert" style="margin-bottom: 5px;">30%</div>
+              <h3 style="margin-bottom: 4px;">Sepsis Incidence</h3>
+              <p class="card-desc">Average proportion of all ICU patients who develop sepsis during admission.</p>
+            </div>
+            <div class="glass-card">
+              <div class="stat-large highlight-mint" style="margin-bottom: 5px;">15-37%</div>
+              <h3 style="margin-bottom: 4px;">New Organ Failure</h3>
+              <p class="card-desc">Patients developing new organ failure during their ICU admission.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: WHAT WE BUILT -->
+    <section class="slide-section" id="slide-3">
+      <div class="slide-wrapper">
+        <span class="slide-label">Our Solution</span>
+        <h2>Standardised Predictive Panel</h2>
+        <div class="grid-2">
+          <div>
+            <p class="lead-text">
+              We built an early warning system monitoring a panel of <span class="highlight-mint">42 physiological variables</span> drawn from routine, non-invasive ICU telemetry.
+            </p>
+            <p class="body-text">
+              By continuously evaluating real-time clinical markers, our algorithm outputs predictive risk alerts across five distinct endpoints. This lead time gives medical teams a critical window to intervene before active organ failure clinically manifests.
+            </p>
+          </div>
+          <div class="glass-card flex-column align-stretch">
+            <h3 style="margin-bottom: 15px; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.05em; color: var(--color-mint);">5 Endpoint Early Warning Windows</h3>
+            <div class="endpoint-item">
+              <span class="endpoint-name">Circulatory Failure</span>
+              <span class="endpoint-time highlight-mint">8 Hours Lead Time</span>
+            </div>
+            <div class="endpoint-item">
+              <span class="endpoint-name">Sepsis Onset</span>
+              <span class="endpoint-time highlight-mint">8 Hours Lead Time</span>
+            </div>
+            <div class="endpoint-item">
+              <span class="endpoint-name">Hyperglycaemia</span>
+              <span class="endpoint-time highlight-mint">8 Hours Lead Time</span>
+            </div>
+            <div class="endpoint-item">
+              <span class="endpoint-name">Kidney Failure</span>
+              <span class="endpoint-time highlight-mint">48 Hours Lead Time</span>
+            </div>
+            <div class="endpoint-item" style="border-bottom: none;">
+              <span class="endpoint-name">Liver Failure</span>
+              <span class="endpoint-time highlight-mint">48 Hours Lead Time</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: CLINICAL DASHBOARD -->
+    <section class="slide-section" id="slide-4">
+      <div class="slide-wrapper" style="max-width: 95%; height: 85vh; display: flex; flex-direction: column;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 15px; border-bottom: 1px solid var(--color-border); padding-bottom: 10px;">
+          <div>
+            <span class="slide-label">Clinical Workflow</span>
+            <h2 style="margin-bottom: 4px; background: transparent; padding-bottom: 0;">Interactive Prototype</h2>
+            <h3 style="font-size: 1.6rem; color: var(--color-teal-dark); margin-bottom: 0; font-weight: 600; font-family: var(--font-title);">Live Clinical Dashboard</h3>
+          </div>
+          <p class="body-text" style="max-width: 600px; font-size: 0.85rem; line-height: 1.4; text-align: right; margin-bottom: 3px;">
+            Simulates live ICU telemetry streams. When a sub-clinical pattern is detected, risk scores rise, alerting the nurse to verify the patient's state and order preventative care.
+          </p>
+        </div>
+        <div class="iframe-container" style="flex: 1; width: 100%;">
+          <iframe src="Interactive-Prototype-HTML.html" style="width: 100%; height: 100%; border: 1px solid var(--color-border); border-radius: 12px; background: #031012; box-shadow: 0 8px 24px rgba(11, 76, 84, 0.05);" title="Live Clinical Dashboard Prototype"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: PERFORMANCE & VALIDATION -->
+    <section class="slide-section" id="slide-5">
+      <div class="slide-wrapper">
+        <span class="slide-label">Clinical Integrity</span>
+        <h2>Model Performance & Validation</h2>
+        <p class="body-text" style="max-width: 800px; margin-bottom: 25px;">
+          To ensure real-world generalisability, the model was trained on 210,013 patients and evaluated on an independent external cohort of 29,579 patients across hospitals in geographically distinct settings.
+        </p>
+        
+        <div class="auroc-container">
+          <div class="cohort-buttons">
+            <button class="cohort-btn active" data-cohort="internal">
+              <div class="cohort-badge">Baseline</div>
+              <div class="cohort-title">Internal Cohort</div>
+            </button>
+            <button class="cohort-btn" data-cohort="nwicu">
+              <div class="cohort-badge">External Validation</div>
+              <div class="cohort-title">Northwest ICU (USA)</div>
+            </button>
+            <button class="cohort-btn" data-cohort="zigong">
+              <div class="cohort-badge">External Validation</div>
+              <div class="cohort-title">Zigong Hospital (China)</div>
+            </button>
+            <button class="cohort-btn" data-cohort="pediatric">
+              <div class="cohort-badge alert">Special Validation</div>
+              <div class="cohort-title">Pediatric Cohort</div>
+            </button>
+          </div>
+
+          <div class="glass-card roc-graph-card">
+            <div class="roc-card-header">
+              <span class="roc-label">ROC Curve Preview</span>
+              <div class="roc-stat">
+                <span class="roc-stat-label">AUROC:</span>
+                <span id="displayAuroc" class="roc-stat-val highlight-mint">0.932</span>
+              </div>
+            </div>
+            
+            <!-- ROC curve drawing -->
+            <svg viewBox="0 0 200 200" class="roc-svg">
+              <rect x="10" y="10" width="180" height="180" class="roc-grid-rect" />
+              <line x1="10" y1="100" x2="190" y2="100" class="roc-grid-line" />
+              <line x1="100" y1="10" x2="100" y2="190" class="roc-grid-line" />
+              <line x1="10" y1="190" x2="190" y2="10" class="roc-random-line" />
+              <path id="rocCurve" class="roc-path" d="M 10 190 Q 20 20 190 10" />
+            </svg>
+            
+            <p id="displayCohortDesc" class="roc-desc">
+              <strong>Internal Cohort (210,013 patients):</strong> Robust training baseline across MIMIC-III, MIMIC-IV, and eICU. Sepsis AUROC reached 0.845; Liver Failure reached 0.982.
+            </p>
+          </div>
+        </div>
+
+        <div class="pediatric-box">
+          <strong>Pediatric Cohort Transparency:</strong> Performance was more modest in the pediatric cohort (AUROC 0.798). Dedicated calibration is required before pediatric clinical application is considered.
+        </div>
+      </div>
+    </section>
+
+    <!-- NEW SLIDE 6: WHY THIS MATTERS FOR PATIENTS (CLINICAL BENEFITS) -->
+    <section class="slide-section" id="slide-6">
+      <div class="slide-wrapper">
+        <span class="slide-label">Clinical Benefits</span>
+        <h2>Why This Matters for Patients</h2>
+        <div class="patient-outcome-grid">
+          <div>
+            <h3 style="color: var(--color-mint); font-size: 1.15rem; margin-bottom: 12px;">Reference: The TREWS Study (Nature Medicine, 2022)</h3>
+            <p class="lead-text">
+              Early warning creates a critical head start, allowing clinicians to administer antibiotics and fluids before clinical organ failure manifests.
+            </p>
+            <p class="body-text" style="margin-bottom: 20px;">
+              A landmark prospective study evaluating the Targeted Real-time Early Warning System (TREWS) monitored over 590,000 patient encounters across 5 hospital sites, establishing clear evidence of early AI utility:
+            </p>
+            <div class="card-vertical-stack">
+              <div class="glass-card flex-row gap-20" style="padding: 16px 20px;">
+                <div class="stat-large highlight-mint" style="font-size: 2.2rem; width: 110px;">18.7%</div>
+                <div>
+                  <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--color-teal-dark);">Relative Mortality Reduction</h4>
+                  <p class="card-desc" style="margin-top: 1px;">Significant drop in in-hospital mortality when alerts are acted on within 3 hours.</p>
+                </div>
+              </div>
+              <div class="glass-card flex-row gap-20" style="padding: 16px 20px;">
+                <div class="stat-large highlight-mint" style="font-size: 2.2rem; width: 110px;">3.3%</div>
+                <div>
+                  <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--color-teal-dark);">Absolute Mortality Reduction</h4>
+                  <p class="card-desc" style="margin-top: 1px;">Direct lives saved across the entire clinical cohort.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sofa-chart-container">
+            <h3 style="text-align: center; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-teal-dark); margin-bottom: 10px;">Progression of Organ Failure</h3>
+            <p class="card-desc" style="text-align: center; margin-bottom: 15px;">Measured by SOFA (Sequential Organ Failure Assessment) score improvement after alert onset.</p>
+            
+            <div class="sofa-chart-bar-group">
+              <div class="sofa-bar-row">
+                <div class="sofa-label-group">
+                  <span>Control Group (Late Detection)</span>
+                  <span class="highlight-mint">0.4 Point Reduction</span>
+                </div>
+                <div class="sofa-bar-track">
+                  <div class="sofa-bar-fill control" style="width: 50%;"></div>
+                </div>
+              </div>
+              <div class="sofa-bar-row">
+                <div class="sofa-label-group">
+                  <span>TREWS Group (Early AI Alert)</span>
+                  <span class="highlight-mint">0.8 Point Reduction (2x Efficacy)</span>
+                </div>
+                <div class="sofa-bar-track">
+                  <div class="sofa-bar-fill trews" style="width: 100%;"></div>
+                </div>
+              </div>
+            </div>
+            
+            <p class="body-text" style="font-size: 0.85rem; line-height: 1.4; border-top: 1px solid rgba(11, 76, 84, 0.08); padding-top: 12px; margin-top: 5px;">
+              <strong>SOFA Score Benefit:</strong> Giving clinicians a 6-hour predictive warning allows them to double the clinical reduction in organ dysfunction, protecting patient organ integrity and accelerating healing.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEW SLIDE 7: WHY THIS MATTERS FOR HOSPITALS (OPERATIONAL BENEFITS) -->
+    <section class="slide-section" id="slide-7">
+      <div class="slide-wrapper">
+        <span class="slide-label">Hospital Utility</span>
+        <h2>Why This Matters for Hospitals</h2>
+        <div class="grid-2">
+          <div>
+            <p class="lead-text">
+              Easing clinician burden in high-stress intensive care environments.
+            </p>
+            <p class="body-text" style="margin-bottom: 18px;">
+              Hospital environments face acute systemic issues: staffing shortages, nurse burnout, high patient-to-practitioner ratios, and unexpected emergency bed overflows (as seen during COVID-19 surges). 
+            </p>
+            <p class="body-text">
+              Our continuous predictive warning system helps alleviate these pressures by replacing simple, noisy threshold alarms with a single, highly specific dashboard that triggers only when intervention is clinically necessary.
+            </p>
+          </div>
+          <div class="card-vertical-stack">
+            <div class="glass-card" style="padding: 16px 20px;">
+              <h3 style="color: var(--color-mint); font-size: 1.05rem; margin-bottom: 4px;">Increase Nurse Capacity</h3>
+              <p class="body-text" style="font-size: 0.85rem; line-height: 1.4;">
+                Eliminates simple telemetry alarm fatigue. Staff are directed only to patients showing true, sub-clinical deterioration signs, streamlining shift tasks.
+              </p>
+            </div>
+            <div class="glass-card" style="padding: 16px 20px;">
+              <h3 style="color: var(--color-mint); font-size: 1.05rem; margin-bottom: 4px;">Prevents Bed Backlog</h3>
+              <p class="body-text" style="font-size: 0.85rem; line-height: 1.4;">
+                Reducing clinical ICU length of stay by 10% frees up critical beds. This eases emergency department wait lists and optimizes patient throughput.
+              </p>
+            </div>
+            <div class="glass-card" style="padding: 16px 20px;">
+              <h3 style="color: var(--color-mint); font-size: 1.05rem; margin-bottom: 4px;">Mitigates Bed Overflow Crisis</h3>
+              <p class="body-text" style="font-size: 0.85rem; line-height: 1.4;">
+                During surges or pandemics, continuous monitoring provides an objective safety net, allowing nurses to safely monitor more patients without losing care quality.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 8: PUBLIC HEALTH VALUE (GOVERNMENT SAVINGS) -->
+    <section class="slide-section" id="slide-8">
+      <div class="slide-wrapper">
+        <span class="slide-label">Fiscal Impact Model</span>
+        <h2>Public Healthcare Savings (National Level)</h2>
+        <p class="body-text" style="max-width: 800px; margin-bottom: 25px;">
+          Adjust the slider at the bottom to see how different clinical efficacy rates impact daily and annual national savings. Click any card to reveal the calculations and baseline math.
+        </p>
+
+        <!-- 3 Cards Layout -->
+        <div class="cards-grid">
+          
+          <!-- Card 1: Optimization -->
+          <div class="flip-card" id="card-opt">
+            <div class="flip-card-inner">
+              <div class="flip-card-front glass-card-interactive">
+                <div class="card-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                  </svg>
+                </div>
+                <h3>Optimization Savings</h3>
+                <p class="card-desc">Shortening intensive care stays by 10% for patients who still deteriorate but recover faster due to early alerts.</p>
+                <div class="card-math-preview">
+                  <span class="card-savings-val highlight-mint" id="optDailyVal">RM 35,700</span>
+                  <span class="card-savings-label">per day</span>
+                </div>
+                <div class="card-click-prompt">Click to reveal details</div>
+              </div>
+              <div class="flip-card-back glass-card-interactive">
+                <h3>Optimization Math</h3>
+                <div class="math-body">
+                  <div class="math-line">
+                    <span class="math-label">Active Beds:</span>
+                    <span class="math-val" id="optMathBeds">142.8 Beds</span>
+                  </div>
+                  <div class="math-line">
+                    <span class="math-label">Daily Cost Saved:</span>
+                    <span class="math-val">RM 250 / bed-day</span>
+                  </div>
+                  <div class="math-totals" style="margin-top: 15px;">
+                    <div><strong>Daily:</strong> <span class="highlight-mint" id="optMathDaily">RM 35,700</span></div>
+                    <div><strong>Annual:</strong> <span class="highlight-mint" id="optMathAnnual">RM 13.03M</span></div>
+                  </div>
+                </div>
+                <div class="card-click-prompt">Click to return</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Prevention -->
+          <div class="flip-card" id="card-prev">
+            <div class="flip-card-inner">
+              <div class="flip-card-front glass-card-interactive">
+                <div class="card-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  </svg>
+                </div>
+                <h3>Prevention Savings</h3>
+                <p class="card-desc">Aborting clinical deterioration entirely (stopping sepsis, organ failure) via immediate, early-stage intervention.</p>
+                <div class="card-math-preview">
+                  <span class="card-savings-val highlight-mint" id="prevDailyVal">RM 238,000</span>
+                  <span class="card-savings-label">per day</span>
+                </div>
+                <div class="card-click-prompt">Click to reveal details</div>
+              </div>
+              <div class="flip-card-back glass-card-interactive">
+                <h3>Prevention Math</h3>
+                <div class="math-body">
+                  <div class="math-line">
+                    <span class="math-label">Active Beds:</span>
+                    <span class="math-val" id="prevMathBeds">95.2 Beds</span>
+                  </div>
+                  <div class="math-line">
+                    <span class="math-label">Daily Cost Saved:</span>
+                    <span class="math-val">RM 2,500 / bed-day</span>
+                  </div>
+                  <div class="math-totals" style="margin-top: 15px;">
+                    <div><strong>Daily:</strong> <span class="highlight-mint" id="prevMathDaily">RM 238,000</span></div>
+                    <div><strong>Annual:</strong> <span class="highlight-mint" id="prevMathAnnual">RM 86.87M</span></div>
+                  </div>
+                </div>
+                <div class="card-click-prompt">Click to return</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3: Combined -->
+          <div class="flip-card" id="card-combined">
+            <div class="flip-card-inner">
+              <div class="flip-card-front glass-card-interactive border-glowing">
+                <div class="card-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="1" x2="12" y2="23" />
+                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                  </svg>
+                </div>
+                <h3>Total Combined Savings</h3>
+                <p class="card-desc" style="margin-bottom: 2px;">The macro-fiscal impact of integrating our early warning system across the national public healthcare network.</p>
+                <div class="card-math-preview" style="margin-top: 2px;">
+                  <span class="card-savings-val highlight-mint" style="font-size: 1.35rem;" id="combinedAnnualVal">RM 99.90 Million / yr</span>
+                  <span class="card-savings-val highlight-mint" style="font-size: 1.05rem; font-weight: 600; opacity: 0.85; margin-top: 2px;" id="combinedDailyVal">RM 273,700 / day</span>
+                </div>
+                <div class="card-click-prompt">Click to reveal totals</div>
+              </div>
+              <div class="flip-card-back glass-card-interactive border-glowing">
+                <h3>Combined Summary</h3>
+                <div class="math-body">
+                  <div class="math-line">
+                    <span class="math-label">National ICU Beds:</span>
+                    <span class="math-val">800 Beds</span>
+                  </div>
+                  <div class="math-line">
+                    <span class="math-label">Occupancy (85%):</span>
+                    <span class="math-val">680 Active Beds</span>
+                  </div>
+                  <div class="math-line">
+                    <span class="math-label">Deterioration Rate:</span>
+                    <span class="math-val">35% (238 patients/day)</span>
+                  </div>
+                  <div class="math-totals" style="margin-top: 15px; border-top: 1px solid rgba(19, 181, 164, 0.2); padding-top: 10px;">
+                    <div><strong>Total Daily:</strong> <span class="highlight-mint" id="combinedMathDaily">RM 273,700</span></div>
+                    <div><strong>Total Annual:</strong> <span class="highlight-mint" id="combinedMathAnnual">RM 99.90M</span></div>
+                  </div>
+                </div>
+                <div class="card-click-prompt">Click to return</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Interactive Efficacy Slider -->
+        <div class="slider-container">
+          <div class="slider-labels">
+            <span class="slider-label-left"><strong id="sliderOptLabel">60%</strong> Optimization</span>
+            <span class="slider-title">EFFICACY SPLIT SLIDER</span>
+            <span class="slider-label-right"><strong id="sliderPrevLabel">40%</strong> Prevention</span>
+          </div>
+          <input type="range" min="0" max="100" value="40" class="efficacy-slider" id="efficacySlider">
+          <div class="slider-helper">Drag the slider to adjust the clinical prevention rate dynamically</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SLIDE 9: PRIVATE HEALTHCARE VALUE -->
+    <section class="slide-section" id="slide-9">
+      <div class="slide-wrapper">
+        <span class="slide-label">Commercial Model & Brand</span>
+        <h2>Private Healthcare Efficacy & Value</h2>
+        <div class="grid-2">
+          <div class="glass-card flex-column gap-20">
+            <h3>SaaS Commercialization Model</h3>
+            <div class="commercial-stat-box">
+              <div class="comm-item">
+                <span class="comm-title">Daily Monitoring Charge</span>
+                <span class="comm-val highlight-mint" id="commDailyVal">RM 99 / day</span>
+                <p class="comm-desc">Charged as a premium "Continuous Predictive Monitoring" fee added to patient room & board (less than 10% of standard private ICU room rates).</p>
+              </div>
+              <div class="comm-item" style="border-bottom: none; padding-bottom: 0;">
+                <span class="comm-title">Hospital Annual Revenue</span>
+                <span class="comm-val highlight-mint" id="commAnnualVal">RM 433,620 / year</span>
+                <p class="comm-desc">Generated by a typical 15-bed private ICU operating at 80% occupancy, presenting a high-margin, recurring digital revenue split.</p>
+              </div>
+              <div style="margin-top: 15px; border-top: 1px solid rgba(11, 76, 84, 0.08); padding-top: 12px; width: 100%;">
+                <div style="display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 5px; font-weight: 600; color: var(--color-text-muted);">
+                  <span>CHARGE RANGE</span>
+                  <span>RM 0 - RM 2,000</span>
+                </div>
+                <input type="range" min="0" max="2000" value="99" class="efficacy-slider" id="commChargeSlider" style="margin: 5px 0; width: 100%;">
+                <div style="font-size: 0.7rem; color: var(--color-text-muted); text-align: center; margin-top: 2px;">Drag to adjust the patient monitoring fee dynamically</div>
+              </div>
+            </div>
+          </div>
+          <div class="flex-column gap-20">
+            <div class="glass-card">
+              <h3 style="color: var(--color-mint); margin-bottom: 8px;">Smart Hospital Leadership</h3>
+              <p class="body-text" style="font-size: 0.9rem; line-height: 1.5;">
+                Establishes the facility as an AI-driven leader in clinical safety. Reduces unexpected clinical codes (cardiac arrests) and mortality in critical care, building strong patient trust.
+              </p>
+            </div>
+            <div class="glass-card">
+              <h3 style="color: var(--color-mint); margin-bottom: 8px;">Insurer Preference</h3>
+              <p class="body-text" style="font-size: 0.9rem; line-height: 1.5;">
+                Private health insurers prefer hospitals with shorter average ICU lengths of stay and lower complication profiles. Early warnings allow private hospitals to negotiate premium preferred-provider panel terms.
+              </p>
+            </div>
+            <div class="glass-card">
+              <h3 style="color: var(--color-mint); margin-bottom: 8px;">Medico-Legal Protection</h3>
+              <p class="body-text" style="font-size: 0.9rem; line-height: 1.5;">
+                Delayed detection of clinical deterioration and organ failure is a major source of critical care malpractice litigation. Continuous early warning alerts provide an objective clinical safety net, mitigating risk and insurance premiums.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 10: TRL TIMELINE -->
+    <section class="slide-section" id="slide-10">
+      <div class="slide-wrapper">
+        <span class="slide-label">Execution Roadmap</span>
+        <h2>Technology Readiness Level (TRL) Timeline</h2>
+        
+        <div class="trl-timeline-container">
+          
+          <div class="timeline-item">
+            <div class="timeline-dot completed"></div>
+            <div class="timeline-content">
+              <span class="trl-tag completed">TRL 4 - 5</span>
+              <h3>Retrospective Validation</h3>
+              <span class="timeline-date">COMPLETED (2025 - H1 2026)</span>
+              <p>Completed offline algorithm training and retrospective validation across MIMIC-III, MIMIC-IV, Northwest ICU, and Zigong Hospital cohorts (over 260k patients).</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot active"></div>
+            <div class="timeline-content">
+              <span class="trl-tag active">TRL 6</span>
+              <h3>Silent Validation (Current Phase)</h3>
+              <span class="timeline-date">IN PROGRESS (H2 2026)</span>
+              <p>Deploying the early warning algorithm on live simulated feeds and silent real-time hospital databases to measure alarm precision and eliminate alert fatigue.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <span class="trl-tag">TRL 7</span>
+              <h3>Operational Bedside Pilot</h3>
+              <span class="timeline-date">UPCOMING (Q4 2026 - Q1 2027)</span>
+              <p>Silent background trials in active clinical settings across 2-3 partner public and private hospitals, integrating alerts directly into nurse workflows.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <span class="trl-tag">TRL 8</span>
+              <h3>Clinical Trials & Certification</h3>
+              <span class="timeline-date">PLANNED (H1 2027)</span>
+              <p>Conducting prospective clinical trials in Malaysia and submitting dossier for Medical Device Authority (MDA) approval and CE-Mark certification.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item" style="border-left: none; padding-bottom: 0;">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <span class="trl-tag">TRL 9</span>
+              <h3>Commercial Rollout</h3>
+              <span class="timeline-date">TARGET (H2 2027+)</span>
+              <p>Full active operational integration across public (MOH) and private hospital ICU telemetry systems, offering a nationwide clinical safety net.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 11: OUR PARTNERSHIP ASK & NEXT STEPS -->
+    <section class="slide-section" id="slide-11">
+      <div class="slide-wrapper">
+        <div class="ask-container">
+          <span class="slide-label">Collaboration</span>
+          <h2>Next Steps & Partnership Ask</h2>
+          <p class="body-text" style="max-width: 700px; margin: 15px auto 35px auto;">
+            We are moving our early warning system from successful verification to bedside operational clinical pilots. We are seeking partners in the following key areas:
+          </p>
+          <div class="grid-3">
+            <div class="glass-card ask-card">
+              <div class="ask-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
+              </div>
+              <h3>Clinical Pilots</h3>
+              <p class="body-text" style="font-size: 0.85rem; line-height: 1.5; margin-top: 10px;">
+                Seeking major public and private hospitals in Malaysia to host our <strong>TRL 7 silent bedside pilots</strong> in Q4 2026.
+              </p>
+            </div>
+            <div class="glass-card ask-card">
+              <div class="ask-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="2" width="20" height="8" rx="2" ry="2" />
+                  <rect x="2" y="14" width="20" height="8" rx="2" ry="2" />
+                  <line x1="6" y1="6" x2="6.01" y2="6" />
+                  <line x1="6" y1="18" x2="6.01" y2="18" />
+                </svg>
+              </div>
+              <h3>System Integration</h3>
+              <p class="body-text" style="font-size: 0.85rem; line-height: 1.5; margin-top: 10px;">
+                Partnering with Electronic Health Record (EHR) vendors and telemetry software suppliers to develop clean API standard interfaces.
+              </p>
+            </div>
+            <div class="glass-card ask-card">
+              <div class="ask-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="12" y1="1" x2="12" y2="23" />
+                  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                </svg>
+              </div>
+              <h3>Clinical Trial Funding</h3>
+              <p class="body-text" style="font-size: 0.85rem; line-height: 1.5; margin-top: 10px;">
+                Securing seed grants, clinical research funding, and strategic co-investments to scale our prospective TRL 8 clinical trials.
+              </p>
+            </div>
+          </div>
+          
+          <div class="contact-box" style="margin-top: 40px; border-color: rgba(0, 167, 157, 0.25); box-shadow: 0 4px 20px rgba(0, 167, 157, 0.05); padding: 25px 40px;">
+            <p style="font-size: 1.8rem; font-weight: 800; color: var(--color-mint); font-family: var(--font-title); letter-spacing: -0.01em; margin-bottom: 0;">Join us in building the digital safety net for intensive care.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
